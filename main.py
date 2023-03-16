@@ -1,9 +1,8 @@
 #function:
-#prints the current board situation with map
-def current(*args):
+def current(*args): #prints the current board situation with map
     for i in range((len(args))):
         for k in range(len(args[i])):
-            print(*args[i][k], sep =' | ')
+            print(*args[i][k], sep =' | ') #print the strint without to queots ''
 
     return None
 
