@@ -41,7 +41,7 @@ while Program_Run:
             Row = int(input("first Enter row : "))
             Line = int(input("now Enter line : "))
             if (Row not in range(len(Game_Board))) or (Line not in range(len(Game_Board))):
-                print('please enter valid number between 0-2\n'')
+                print('please enter valid number between 0-2\n')
             else:
                 Game_Board[Row][Line]='x'
                 current(Game_Board)
