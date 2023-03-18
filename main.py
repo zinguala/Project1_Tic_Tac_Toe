@@ -6,9 +6,14 @@ import time
 
 
 def current(*args):  # prints the current board situation with map
+    middle_lines = 0
     for i in range((len(args))):
         for k in range(len(args[i])):
+            print(' ',end='')
             print(*args[i][k], sep=' | ')  # print the string without to quotes ''
+            middle_lines += 1
+            if middle_lines != (len(*args)):
+                print('----'*(len(*args)))
     print('\n')
     return None
 
@@ -78,12 +83,12 @@ while Program_Run:
 
     counter_for_draw = 0
     Player = 0
-    print('Welcome noughts and crosses :) \nTo Choose which game you want to play press: \n 1-player vs player\n'
+    print('Welcome noughts and crosses :\n) \nTo Choose which game you want to play press: \n 1-player vs player\n'
           ' 2-player vs computer\n 3-computer vs computer\n 4-exit\n')
     try:
         Menu = int(input('please choose now : '))
     except ValueError:
-        print('try again')
+        print('try again\n')
         continue
 
     if Menu == 1:
@@ -146,7 +151,7 @@ while Program_Run:
                 if (Row not in range(len(Game_Board))) or (Line not in range(len(Game_Board))): # check coordinates if in range
                     print(f'please enter valid number between 0 - {(len(Game_Board)-1)}\n')
                 elif Game_Board[Row][Line] != '_':                            # check if this square is already taken
-                    print(f'this square {Row}{Line} is already taken please choose other one')
+                    print(f'this square {Row}{Line} is already taken please choose other one\n')
                 else:
                     Game_Board[Row][Line] = 'o'        # insert the symbol of the player in the coordinates chose
                     counter_for_draw += 1
@@ -251,7 +256,7 @@ while Program_Run:
                     break
 
                 if counter_for_draw == (len(Game_Board) ** 2):
-                    print('Its a Draw no one wins :)')
+                    print('Its a Draw no one wins :)\n')
                     break
                 while True:  # while for player 1 turn
                     print('Player 2 your turn, please choose where to put-o \n')
@@ -267,7 +272,7 @@ while Program_Run:
                             Line not in range(len(Game_Board))):  # check coordinates if in range
                         print(f'please enter valid number between 0 - {(len(Game_Board) - 1)}\n')
                     elif Game_Board[Row][Line] != '_':  # check if this square is already taken
-                        print(f'this square {Row}{Line} is already taken please choose other one')
+                        print(f'this square {Row}{Line} is already taken please choose other one\n')
                     else:
                         Game_Board[Row][Line] = 'o'  # insert the symbol of the player in the coordinates chose
                         counter_for_draw += 1
@@ -312,7 +317,7 @@ while Program_Run:
                 print('computer 1 is the winner !!!!!!!!!!!!!!!\n')
                 break
             if counter_for_draw == (len(Game_Board) ** 2):
-                print('Its a Draw no one wins :)')
+                print('Its a Draw no one wins :)\n')
                 break
             time.sleep(3)
             print('now its the computer 2 turn  \n')
@@ -329,7 +334,7 @@ while Program_Run:
                 print('computer 2 is the winner!!!!!!!!!!!!!!!\n')
                 break
             if counter_for_draw == (len(Game_Board) ** 2):
-                print('Its a Draw no one wins :)')
+                print('Its a Draw no one wins :)\n')
                 break
             time.sleep(3)
     elif Menu == 4:
