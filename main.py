@@ -1,9 +1,15 @@
+import random
+
 # functions:----------------------------------------------------------------------------------------
+
+
 def current(*args):  # prints the current board situation with map
     for i in range((len(args))):
         for k in range(len(args[i])):
             print(*args[i][k], sep=' | ')  # print the string without to quotes ''
+    print('\n')
     return None
+
 
 def win_check(args):  # function for win check if player wins it returns the symbol of the winner if not return None.
     count_for_win = len(args)   # set how many symbols in a sequence for wining
@@ -33,7 +39,7 @@ def win_check(args):  # function for win check if player wins it returns the sym
                 count_line_o += 1                       # count 1 up when there is o in this place
                 if count_line_o == count_for_win:        # see if the o counter in line reached to the limit for win
                     return 'o'
-            if i == k:     #check the first diagonal (00,11,22,33,....) for sequence in one symbol
+            if i == k:     # check the first diagonal (00,11,22,33,....) for sequence in one symbol
                 if args[i][k] == 'x':
                     count_first_diagonal_x += 1    # count 1 up when there is x in this place
                     if count_first_diagonal_x == count_for_win:
@@ -43,8 +49,8 @@ def win_check(args):  # function for win check if player wins it returns the sym
                     if count_first_diagonal_o == count_for_win:
                         return 'o'
 
-    for j in range(len(args)):                 #new for the second diagonal check
-        if args[count_for_win - j - 1][j] == 'x':  # check the second diagonal (x0,..,21,12,..,0x) for sequence in one symbol
+    for j in range(len(args)):                 # new for the second diagonal check
+        if args[count_for_win - j - 1][j] == 'x':   # check the second diagonal (x0,..,21,12,..,0x) for sequence
             count_second_diagonal_x += 1
             if count_second_diagonal_x == count_for_win:
                 return 'x'
@@ -54,6 +60,7 @@ def win_check(args):  # function for win check if player wins it returns the sym
                 return 'o'
     return None
 
+
 # main code:---------------------------------------------------------------------------------------------
 Program_Run = True   # for running while that runs the whole Program until hitting exit.
 Menu = 0            # varible for a menu so the player can choose
@@ -61,11 +68,14 @@ Game_Board_size3 = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
 Game_map_size3 = [['00', '01', '02'], ['10', '11', '12'], ['20', '21', '22']]
 Game_board_size4 = [['_', '_', '_', '_'], ['_', '_', '_', '_'], ['_', '_', '_', '_'], ['_', '_', '_', '_']]
 Game_map_size4 = [['00', '01', '02', '03'], ['10', '11', '12', '13'], ['20', '21', '22', '23'],
-                        ['30', '31', '32', '33']]
+                  ['30', '31', '32', '33']]
+counter_for_draw = 0
 
 while Program_Run:
     Game_Board = []
     Game_map = []
+    counter_for_draw = 0
+    Player = 0
     print('Welcome noughts and crosses :) \nTo Choose which game you want to play press: \n 1-player vs player\n'
           ' 2-player vs computer\n 3-computer vs computer\n 4-exit\n')
     try:
@@ -75,9 +85,10 @@ while Program_Run:
         continue
 
     if Menu == 1:
+        print('welcome to player vs player \n')
         while True:          # while for checking the input of the size of the game board so it will be 3 or 4 only
             try:
-                Board_size = int(input('please select board size 3 or 4 : '))
+                Board_size = int(input('please select board size 3 or 4 : '))  # player can choose the size of the board
             except ValueError:
                 continue
             if Board_size == 3:
@@ -92,10 +103,10 @@ while Program_Run:
                 break
         current(Game_Board)
         current(Game_map)
-        while True:                          # while that running the game
-            print('first player you choose where to place -x\nsecond player you choose where to place -o\n ')
-            print('Player 1 your turn, please choose where to put-x \n')
+        print('first player you choose where to place -x\nsecond player you choose where to place -o\n ')
+        while True:                          # while that running the initial game
             while True:                   # while for player 1 turn
+                print('Player 1 your turn, please choose where to put-x \n')
                 try:
                     Row = int(input("first Enter row : "))
                 except ValueError:
@@ -104,40 +115,174 @@ while Program_Run:
                     Line = int(input("now Enter line : "))
                 except ValueError:
                     continue
-                if (Row not in range(len(Game_Board))) or (Line not in range(len(Game_Board))):
+                if (Row not in range(len(Game_Board))) or (Line not in range(len(Game_Board))): # check coordinates if in range
                     print(f'please enter valid number between 0 - {(len(Game_Board)-1)}\n')
-                elif Game_Board[Row][Line] != '_':
+                elif Game_Board[Row][Line] != '_':                            # check if this square is already taken
                     print(f'this square {Row}{Line} is already taken please choose other one')
                 else:
-                    Game_Board[Row][Line] = 'x'
+                    Game_Board[Row][Line] = 'x'            # insert the symbol of the player in the coordinates chose
+                    counter_for_draw += 1
                     break
-            current(Game_Board)
-            current(Game_map)
-            if win_check(Game_Board) == 'x':
-                print('player 1 you are the winner\n')
+            current(Game_Board)                     # calls the current function to show the board
+            current(Game_map)                        # calls the current function to show the map
+            if win_check(Game_Board) == 'x':          # winner check with win_check function
+                print('player 1 you are the winner!!!!!!!!!!!!!!!\n')
+                break
+            if counter_for_draw == (len(Game_Board) ** 2):        # draw check if now squares left
+                print('Its a Draw no one wins :)\n')
                 break
             print('Player 2 your turn, please choose where to put-o \n')
-            while True:
+            while True:                       # while for turn of player 2
                 try:
-                    Row = int(input("first Enter row : "))
+                    Row = int(input("first Enter row : "))        # coordinates choose
                 except ValueError:
                     continue
                 try:
-                    Line = int(input("now Enter line : "))
+                    Line = int(input("now Enter line : "))        # coordinates choose
                 except ValueError:
                     continue
-                if (Row not in range(len(Game_Board))) or (Line not in range(len(Game_Board))):
+                if (Row not in range(len(Game_Board))) or (Line not in range(len(Game_Board))): # check coordinates if in range
                     print(f'please enter valid number between 0 - {(len(Game_Board)-1)}\n')
-                elif Game_Board[Row][Line] != '_':
+                elif Game_Board[Row][Line] != '_':                            # check if this square is already taken
                     print(f'this square {Row}{Line} is already taken please choose other one')
                 else:
-                    Game_Board[Row][Line] = 'o'
+                    Game_Board[Row][Line] = 'o'        # insert the symbol of the player in the coordinates chose
+                    counter_for_draw += 1
                     break
-            current(Game_Board)
-            current(Game_map)
-            if win_check(Game_Board) == 'o':
-                print('player 2 you are the winner')
+            current(Game_Board)                       # calls the current function to show the board
+            current(Game_map)                         # calls the current function to show the map
+            if win_check(Game_Board) == 'o':         # winner check with win_check function
+                print('player 2 you are the winner!!!!!!!!!!!!!!!\n')
                 break
+            if counter_for_draw == (len(Game_Board) ** 2):
+                print('Its a Draw no one wins :)\n')
+                break
+    elif Menu == 2:
+        print('welcome to player vs computer \n')
+        while True:  # while for checking the input of the size of the game board so it will be 3 or 4 only
+            try:
+                Board_size = int(input('please select board size 3 or 4 : '))  # player can choose the size of the board
+            except ValueError:
+                continue
+            if Board_size == 3:
+                print(f'You choose size: {Board_size}x{Board_size}\n')
+                Game_Board = Game_Board_size3
+                Game_map = Game_map_size3
+                break
+            if Board_size == 4:
+                print(f'You choose size: {Board_size}x{Board_size}\n')
+                Game_Board = Game_board_size4
+                Game_map = Game_map_size4
+                break
+        while True:
+            try:
+                Player = int(input('please choose first player (place x) or second player (place o) : '))
+            except ValueError:
+                print('please insert choose 1 or 2 \n')
+                continue
+            if Player == 1 or Player == 2:
+                break
+
+        current(Game_Board)
+        current(Game_map)
+        if Player == 1:
+            while True:  # while that running the initial game
+                print('Player 1 your turn, please choose where to put-x \n')
+                while True:  # while for player 1 turn
+                    try:
+                        Row = int(input("first Enter row : "))
+                    except ValueError:
+                        continue
+                    try:
+                        Line = int(input("now Enter line : "))
+                    except ValueError:
+                        continue
+                    if (Row not in range(len(Game_Board))) or (
+                            Line not in range(len(Game_Board))):  # check coordinates if in range
+                        print(f'please enter valid number between 0 - {(len(Game_Board) - 1)}\n')
+                    elif Game_Board[Row][Line] != '_':  # check if this square is already taken
+                        print(f'this square {Row}{Line} is already taken please choose other one')
+                    else:
+                        Game_Board[Row][Line] = 'x'  # insert the symbol of the player in the coordinates chose
+                        counter_for_draw += 1
+                        break
+                current(Game_Board)  # calls the current function to show the board
+                current(Game_map)  # calls the current function to show the map
+                if win_check(Game_Board) == 'x':  # winner check with win_check function
+                    print('player 1 you are the winner!!!!!!!!!!!!!!!\n')
+                    break
+                if counter_for_draw == (len(Game_Board) ** 2):
+                    print('Its a Draw no one wins :)')
+                    break
+                print('now its the computer turn  \n')
+                while True:  # while for turn of player 2
+                    Row = random.randrange(0, len(Game_Board))  # coordinates choose
+                    Line = random.randrange(0, len(Game_Board))  # coordinates choose
+                    if Game_Board[Row][Line] == '_':  # check if this square is already taken
+                        Game_Board[Row][Line] = 'o'  # insert the symbol of the player in the coordinates chose
+                        counter_for_draw += 1
+                        break
+
+                current(Game_Board)  # calls the current function to show the board
+                current(Game_map)  # calls the current function to show the map
+                if win_check(Game_Board) == 'o':  # winner check with win_check function
+                    print('player 2 you are the winner!!!!!!!!!!!!!!!\n')
+                    break
+
+                if counter_for_draw == (len(Game_Board)**2):
+                    print('Its a Draw no one wins :)\n')
+                    break
+        elif Player == 2:
+            while True:  # while that running the initial game
+                print('now its the computer turn  \n')
+                while True:  # while for turn of player 1
+                    Row = random.randrange(0, len(Game_Board))  # coordinates choose
+                    Line = random.randrange(0, len(Game_Board))  # coordinates choose
+                    if Game_Board[Row][Line] == '_':  # check if this square is already taken
+                        Game_Board[Row][Line] = 'x'  # insert the symbol of the player in the coordinates chose
+                        counter_for_draw += 1
+                        break
+                current(Game_Board)  # calls the current function to show the board
+                current(Game_map)  # calls the current function to show the map
+                if win_check(Game_Board) == 'x':  # winner check with win_check function
+                    print('computer wins !!!!!!!!!!!!!!!\n')
+                    break
+
+                if counter_for_draw == (len(Game_Board) ** 2):
+                    print('Its a Draw no one wins :)')
+                    break
+                while True:  # while for player 1 turn
+                    print('Player 2 your turn, please choose where to put-o \n')
+                    try:
+                        Row = int(input("first Enter row : "))
+                    except ValueError:
+                        continue
+                    try:
+                        Line = int(input("now Enter line : "))
+                    except ValueError:
+                        continue
+                    if (Row not in range(len(Game_Board))) or (
+                            Line not in range(len(Game_Board))):  # check coordinates if in range
+                        print(f'please enter valid number between 0 - {(len(Game_Board) - 1)}\n')
+                    elif Game_Board[Row][Line] != '_':  # check if this square is already taken
+                        print(f'this square {Row}{Line} is already taken please choose other one')
+                    else:
+                        Game_Board[Row][Line] = 'o'  # insert the symbol of the player in the coordinates chose
+                        counter_for_draw += 1
+                        break
+                current(Game_Board)  # calls the current function to show the board
+                current(Game_map)  # calls the current function to show the map
+                if win_check(Game_Board) == 'o':  # winner check with win_check function
+                    print('player 2 you are the winner!!!!!!!!!!!!!!!\n')
+                    break
+                if counter_for_draw == (len(Game_Board) ** 2):
+                    print('Its a Draw no one wins :)')
+                    break
+
+
+
+
+
 
 
 
