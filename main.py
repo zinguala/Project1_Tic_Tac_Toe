@@ -66,16 +66,16 @@ def win_check(args):  # function for win check if player wins it returns the sym
 # main code:---------------------------------------------------------------------------------------------
 Program_Run = True   # for running while that runs the whole Program until hitting exit.
 Menu = 0            # varible for a menu so the player can choose
-Game_Board_size3 = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
 Game_map_size3 = [['00', '01', '02'], ['10', '11', '12'], ['20', '21', '22']]
 Game_board_size4 = [['_', '_', '_', '_'], ['_', '_', '_', '_'], ['_', '_', '_', '_'], ['_', '_', '_', '_']]
 Game_map_size4 = [['00', '01', '02', '03'], ['10', '11', '12', '13'], ['20', '21', '22', '23'],
                   ['30', '31', '32', '33']]
 counter_for_draw = 0
+Game_Board = []
+Game_map = []
 
 while Program_Run:
-    Game_Board = []
-    Game_map = []
+
     counter_for_draw = 0
     Player = 0
     print('Welcome noughts and crosses :) \nTo Choose which game you want to play press: \n 1-player vs player\n'
@@ -95,12 +95,12 @@ while Program_Run:
                 continue
             if Board_size == 3:
                 print(f'You choose size: {Board_size}x{Board_size}\n')
-                Game_Board = Game_Board_size3
+                Game_Board = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
                 Game_map = Game_map_size3
                 break
             if Board_size == 4:
                 print(f'You choose size: {Board_size}x{Board_size}\n')
-                Game_Board = Game_board_size4
+                Game_Board = [['_', '_', '_', '_'], ['_', '_', '_', '_'], ['_', '_', '_', '_'], ['_', '_', '_', '_']]
                 Game_map = Game_map_size4
                 break
         current(Game_Board)
@@ -168,12 +168,12 @@ while Program_Run:
                 continue
             if Board_size == 3:
                 print(f'You choose size: {Board_size}x{Board_size}\n')
-                Game_Board = Game_Board_size3
+                Game_Board = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
                 Game_map = Game_map_size3
                 break
             if Board_size == 4:
                 print(f'You choose size: {Board_size}x{Board_size}\n')
-                Game_Board = Game_board_size4
+                Game_Board = [['_', '_', '_', '_'], ['_', '_', '_', '_'], ['_', '_', '_', '_'], ['_', '_', '_', '_']]
                 Game_map = Game_map_size4
                 break
         while True:
@@ -289,12 +289,12 @@ while Program_Run:
                 continue
             if Board_size == 3:
                 print(f'You choose size: {Board_size}x{Board_size}\n')
-                Game_Board = Game_Board_size3
+                Game_Board = [['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
                 Game_map = Game_map_size3
                 break
             if Board_size == 4:
                 print(f'You choose size: {Board_size}x{Board_size}\n')
-                Game_Board = Game_board_size4
+                Game_Board = [['_', '_', '_', '_'], ['_', '_', '_', '_'], ['_', '_', '_', '_'], ['_', '_', '_', '_']]
                 Game_map = Game_map_size4
                 break
         while True:  # while that running the initial game
