@@ -1,4 +1,6 @@
 import random
+import time
+
 
 # functions:----------------------------------------------------------------------------------------
 
@@ -278,8 +280,61 @@ while Program_Run:
                 if counter_for_draw == (len(Game_Board) ** 2):
                     print('Its a Draw no one wins :)')
                     break
-
-
+    elif Menu == 3:
+        print('welcome to computer vs computer \n')
+        while True:  # while for checking the input of the size of the game board so it will be 3 or 4 only
+            try:
+                Board_size = int(input('please select board size 3 or 4 : '))  # player can choose the size of the board
+            except ValueError:
+                continue
+            if Board_size == 3:
+                print(f'You choose size: {Board_size}x{Board_size}\n')
+                Game_Board = Game_Board_size3
+                Game_map = Game_map_size3
+                break
+            if Board_size == 4:
+                print(f'You choose size: {Board_size}x{Board_size}\n')
+                Game_Board = Game_board_size4
+                Game_map = Game_map_size4
+                break
+        while True:  # while that running the initial game
+            print('now its the computer 1 turn  \n')
+            while True:  # while for turn of player 1
+                Row = random.randrange(0, len(Game_Board))  # coordinates choose
+                Line = random.randrange(0, len(Game_Board))  # coordinates choose
+                if Game_Board[Row][Line] == '_':  # check if this square is already taken
+                    Game_Board[Row][Line] = 'x'  # insert the symbol of the player in the coordinates chose
+                    counter_for_draw += 1
+                    break
+            current(Game_Board)  # calls the current function to show the board
+            current(Game_map)  # calls the current function to show the map
+            if win_check(Game_Board) == 'x':  # winner check with win_check function
+                print('computer 1 is the winner !!!!!!!!!!!!!!!\n')
+                break
+            if counter_for_draw == (len(Game_Board) ** 2):
+                print('Its a Draw no one wins :)')
+                break
+            time.sleep(3)
+            print('now its the computer 2 turn  \n')
+            while True:  # while for turn of player 1
+                Row = random.randrange(0, len(Game_Board))  # coordinates choose
+                Line = random.randrange(0, len(Game_Board))  # coordinates choose
+                if Game_Board[Row][Line] == '_':  # check if this square is already taken
+                    Game_Board[Row][Line] = 'o'  # insert the symbol of the player in the coordinates chose
+                    counter_for_draw += 1
+                    break
+            current(Game_Board)  # calls the current function to show the board
+            current(Game_map)  # calls the current function to show the map
+            if win_check(Game_Board) == 'o':  # winner check with win_check function
+                print('computer 2 is the winner!!!!!!!!!!!!!!!\n')
+                break
+            if counter_for_draw == (len(Game_Board) ** 2):
+                print('Its a Draw no one wins :)')
+                break
+            time.sleep(3)
+    elif Menu == 4:
+        print('Goodbye')
+        Program_Run = False
 
 
 
