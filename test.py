@@ -568,3 +568,86 @@ while Program_Run:  # while that runs the whole program
                 if replay == 'n':
                     print(f'user typed {replay} returning to main menu\n')
                     break
+
+    elif Menu == 3:
+        while True:
+            board_size = 0
+            Game_Board = []
+            Game_map = []
+            counter_for_draw = 0  # reset draw counter
+            print('welcome to computer vs computer \n')
+            while True:  # while for checking the input of the size of the game board, so it will be 3-9 only
+                try:
+                    Board_size = int(input('please select board size from 3 to 9 : '))  # choose  size of board
+                except ValueError:
+                    continue
+                if 2 < Board_size < 10:  # check if the input within the range of 3-9
+                    for x in range(Board_size):  # if yes, for in for to construct the game board
+                        help_list = []
+                        for b in range(Board_size):  # for this I am using two lists and append them
+                            help_list.append('_')
+                        Game_Board.append(help_list)
+
+                    for o in range(Board_size):  # now I will construct the map of game board
+                        help_list = []
+                        for p in range(Board_size):  # using again two for loops, and two lists
+                            cord = '{}{}'.format(o, p)
+                            help_list.append(cord)
+                        Game_map.append(help_list)
+
+                    if Board_size == len(Game_Board):  # if all ok move break the while of board creation
+                        print('\n')
+                        break
+                else:
+                    print('please try again')
+            while True:  # while that running the initial game
+                print('now its the computer 1 turn  \n')
+                while True:  # while for turn of player 1
+                    Row = random.randrange(0, len(Game_Board))  # coordinates choose
+                    Line = random.randrange(0, len(Game_Board))  # coordinates choose
+                    if Game_Board[Row][Line] == '_':  # check if this square is already taken
+                        Game_Board[Row][Line] = 'x'  # insert the symbol of the player in the coordinates chose
+                        counter_for_draw += 1
+                        break
+                current(Game_Board)  # calls the current function to show the board
+                current(Game_map)  # calls the current function to show the map
+                if win_check(Game_Board) == 'x':  # winner check with win_check function
+                    print('computer 1 is the winner !!!!!!!!!!!!!!!\n')
+                    break
+                if counter_for_draw == (len(Game_Board) ** 2):
+                    print('Its a Draw no one wins :)\n')
+                    break
+                time.sleep(3)
+                print('now its the computer 2 turn  \n')
+                while True:  # while for turn of player 1
+                    Row = random.randrange(0, len(Game_Board))  # coordinates choose
+                    Line = random.randrange(0, len(Game_Board))  # coordinates choose
+                    if Game_Board[Row][Line] == '_':  # check if this square is already taken
+                        Game_Board[Row][Line] = 'o'  # insert the symbol of the player in the coordinates chose
+                        counter_for_draw += 1
+                        break
+                current(Game_Board)  # calls the current function to show the board
+                current(Game_map)  # calls the current function to show the map
+                if win_check(Game_Board) == 'o':  # winner check with win_check function
+                    print('computer 2 is the winner!!!!!!!!!!!!!!!\n')
+                    break
+                if counter_for_draw == (len(Game_Board) ** 2):
+                    print('Its a Draw no one wins :)\n')
+                    break
+                time.sleep(3)
+
+            while True:  # while for input if players want replay
+                replay = input('wanna replay? y/n : ')
+                if replay in ['y', 'n']:
+                    break
+                else:
+                    print('Type y or n')
+                    continue
+            if replay == 'n':
+                break
+            elif replay == 'y':
+                continue
+
+    elif Menu == 4:
+        print('Goodbye')
+        Program_Run = False
